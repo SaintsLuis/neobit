@@ -88,7 +88,7 @@ input  { font-family: inherit; }
 
 /* ── Desktop Sidebar ── */
 .nb-sidebar {
-  width: 256px;
+  width: 260px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -269,9 +269,6 @@ input  { font-family: inherit; }
 
 /* ── Desktop content wrapper ── */
 .nb-desktop-content {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 36px;
   min-height: 100%;
   width: 100%;
 }
