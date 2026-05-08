@@ -49,6 +49,7 @@ html, body {
   text-rendering: optimizeLegibility;
   background: var(--bg);
   height: 100%;
+  overflow-x: hidden;
 }
 
 * { box-sizing: border-box; }

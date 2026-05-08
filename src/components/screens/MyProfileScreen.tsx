@@ -141,7 +141,7 @@ export function MyProfileScreen({ user, isDesktop }: MyProfileScreenProps) {
 
   return (
     <div className="lumi-page" style={{ padding: 0, paddingBottom: 28 }}>
-      <div style={{ height: 200, background: 'linear-gradient(135deg,#F29E08 0%,#EC8805 50%,#E25905 100%)', position: 'relative', borderRadius: '0 0 32px 32px' }}>
+      <div style={{ height: 200, background: 'linear-gradient(135deg,#F29E08 0%,#EC8805 50%,#E25905 100%)', position: 'relative', borderRadius: '0 0 32px 32px', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -30, right: -30, width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle,rgba(255,255,255,.18) 0%,transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ padding: '70px 20px 0', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div className="lumi-h1" style={{ color: '#fff', fontSize: 28 }}>Mi perfil</div>

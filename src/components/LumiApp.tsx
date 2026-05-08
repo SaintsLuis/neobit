@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Icon, NeobitLogo } from './Icon';
 import { LoginScreen } from './screens/LoginScreen';
 import { HomeScreen } from './screens/HomeScreen';
@@ -222,11 +222,17 @@ export function LumiApp() {
   const [helpOpen, setHelpOpen]       = useState(false);
   const [tweaks, setTweaks]           = useState({ textScale: 1, voiceOnNav: false });
   const isDesktop                     = useIsDesktop();
+  const scrollRef                     = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const root = document.querySelector<HTMLElement>('.lumi-app-root');
     if (root) root.style.setProperty('--tx-scale', String(tweaks.textScale));
   }, [tweaks.textScale]);
+
+  // Reset scroll to top on every screen change
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [tab, showInvoice, payStep]);
 
   useEffect(() => {
     if (!tweaks.voiceOnNav || !user || payStep !== null) return;
@@ -283,7 +289,7 @@ export function LumiApp() {
           <DesktopTopbar tab={tab} inPaymentFlow={inPaymentFlow} showInvoice={showInvoice} />
         )}
 
-        <div className="lumi-scroll" style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingBottom: contentPaddingBottom }}>
+        <div ref={scrollRef} className="lumi-scroll" style={{ flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden', paddingBottom: contentPaddingBottom }}>
           <div className={isDesktop ? 'nb-desktop-content' : undefined}>
             {screen}
           </div>
