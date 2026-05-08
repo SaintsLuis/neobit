@@ -270,7 +270,7 @@ export function MyProfileScreen({
           >
             Calle 45 # 23-67
             <br />
-            Barrio El Prado, Medellín
+            Barrio Pance, Cali
           </div>
         </div>
       </div>
