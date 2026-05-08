@@ -144,7 +144,7 @@ interface PaymentSuccessScreenProps {
 }
 
 export function PaymentSuccessScreen({ onHome, onSpeak }: PaymentSuccessScreenProps) {
-  const ref = 'LUMI-' + Date.now().toString().slice(-8);
+  const ref = 'NEO-' + Date.now().toString().slice(-8);
 
   useEffect(() => {
     if (onSpeak) onSpeak('¡Pago exitoso! Su factura del mes de mayo por ciento veinticinco mil cuatrocientos pesos ha sido pagada.');

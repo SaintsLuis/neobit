@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Icon, LumiLogo } from '../Icon';
+import { Icon, NeobitLogo } from '../Icon';
 
 interface LoginScreenProps {
   onLogin: (user: { name: string; contract: string }) => void;
@@ -16,9 +16,9 @@ export function LoginScreen({ onLogin, onHelp }: LoginScreenProps) {
   return (
     <div className="lumi-page" style={{ minHeight:'100%', padding:'88px 24px 36px', display:'flex', flexDirection:'column', background:'linear-gradient(180deg,#FFF8F2 0%,#FBFAF8 38%)' }}>
       <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:18 }}>
-        <LumiLogo size={88} />
+        <NeobitLogo size={88} />
         <div style={{ textAlign:'center' }}>
-          <div style={{ fontSize:14, fontWeight:800, letterSpacing:'.18em', color:'var(--o-600)', marginBottom:8 }}>LUMI</div>
+          <div style={{ fontSize:14, fontWeight:800, letterSpacing:'.18em', color:'var(--o-600)', marginBottom:8 }}>NEOBIT</div>
           <div className="lumi-h1" style={{ marginBottom:8 }}>Bienvenido</div>
           <div className="lumi-body" style={{ color:'var(--ink-500)' }}>Ingrese sus datos para continuar</div>
         </div>

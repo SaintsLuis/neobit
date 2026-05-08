@@ -214,7 +214,7 @@ export function Icon({ name, size = 24, color = 'currentColor' }: IconProps) {
   return fn ? fn(size, color) : null;
 }
 
-export function LumiLogo({ size = 88 }: { size?: number }) {
+export function NeobitLogo({ size = 88 }: { size?: number }) {
   return (
     <div style={{
       width: size, height: size, borderRadius: '50%',

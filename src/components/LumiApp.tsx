@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { IOSDevice } from './IOSFrame';
 import { Icon } from './Icon';
 import { LoginScreen } from './screens/LoginScreen';
 import { HomeScreen } from './screens/HomeScreen';
@@ -24,13 +23,23 @@ function speak(text: string) {
 // ── Tab Bar ──────────────────────────────────────────────────
 function TabBar({ active, onChange }: { active: number; onChange: (t: number) => void }) {
   const tabs = [
-    { id:0, label:'Inicio',      icon:'home',  iconFill:'homeFill' },
-    { id:1, label:'Mi perfil',   icon:'user',  iconFill:'user' },
-    { id:2, label:'Información', icon:'info',  iconFill:'infoFill' },
-    { id:3, label:'Pagos',       icon:'card',  iconFill:'cardFill' },
+    { id: 0, label: 'Inicio',       icon: 'home', iconFill: 'homeFill' },
+    { id: 1, label: 'Mi perfil',    icon: 'user', iconFill: 'user' },
+    { id: 2, label: 'Información',  icon: 'info', iconFill: 'infoFill' },
+    { id: 3, label: 'Pagos',        icon: 'card', iconFill: 'cardFill' },
   ];
   return (
-    <div style={{ position:'absolute', bottom:0, left:0, right:0, background:'rgba(255,255,255,.96)', backdropFilter:'blur(20px)', WebkitBackdropFilter:'blur(20px)', borderTop:'1px solid var(--ink-100)', paddingTop:8, paddingBottom:38, display:'flex', zIndex:30 }}>
+    <div style={{
+      position: 'absolute', bottom: 0, left: 0, right: 0,
+      background: 'rgba(255,255,255,.96)',
+      backdropFilter: 'blur(20px)',
+      WebkitBackdropFilter: 'blur(20px)',
+      borderTop: '1px solid var(--ink-100)',
+      paddingTop: 8,
+      paddingBottom: 'max(20px, env(safe-area-inset-bottom, 8px))',
+      display: 'flex',
+      zIndex: 30,
+    }}>
       {tabs.map(t => {
         const isActive = active === t.id;
         return (
@@ -48,7 +57,13 @@ function TabBar({ active, onChange }: { active: number; onChange: (t: number) =>
 function HelpFab({ onClick, hidden }: { onClick: () => void; hidden: boolean }) {
   if (hidden) return null;
   return (
-    <button onClick={onClick} aria-label="Ayuda" style={{ position:'absolute', bottom:108, right:16, width:52, height:52, borderRadius:'50%', background:'var(--ink-900)', color:'#fff', border:'none', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 6px 18px rgba(26,20,17,.24)', zIndex:40 }}>
+    <button onClick={onClick} aria-label="Ayuda" style={{
+      position: 'absolute', bottom: 'calc(max(20px, env(safe-area-inset-bottom, 8px)) + 88px)',
+      right: 16, width: 52, height: 52, borderRadius: '50%',
+      background: 'var(--ink-900)', color: '#fff', border: 'none',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      boxShadow: '0 6px 18px rgba(26,20,17,.24)', zIndex: 40,
+    }}>
       <Icon name="question" size={24} color="#fff" />
     </button>
   );
@@ -65,55 +80,55 @@ interface HelpSheetProps {
 function HelpSheet({ open, onClose, tweaks, onTweak }: HelpSheetProps) {
   if (!open) return null;
   return (
-    <div style={{ position:'absolute', inset:0, zIndex:100, background:'rgba(26,20,17,.5)', animation:'lumi-fade .2s ease', display:'flex', flexDirection:'column', justifyContent:'flex-end' }} onClick={onClose}>
-      <div onClick={e => e.stopPropagation()} style={{ background:'var(--surface)', borderRadius:'28px 28px 0 0', padding:'14px 20px 36px', animation:'lumi-sheet-up .3s cubic-bezier(.2,.8,.3,1)', maxHeight:'85%', overflow:'auto' }}>
-        <div style={{ width:44, height:5, borderRadius:999, background:'var(--ink-100)', margin:'0 auto 14px' }} />
-        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:10 }}>
+    <div style={{ position: 'absolute', inset: 0, zIndex: 100, background: 'rgba(26,20,17,.5)', animation: 'lumi-fade .2s ease', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ background: 'var(--surface)', borderRadius: '28px 28px 0 0', padding: '14px 20px 36px', animation: 'lumi-sheet-up .3s cubic-bezier(.2,.8,.3,1)', maxHeight: '85%', overflow: 'auto' }}>
+        <div style={{ width: 44, height: 5, borderRadius: 999, background: 'var(--ink-100)', margin: '0 auto 14px' }} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
           <div className="lumi-h2">¿Necesita ayuda?</div>
-          <button onClick={onClose} style={{ width:44, height:44, borderRadius:'50%', background:'var(--ink-50)', border:'none', display:'flex', alignItems:'center', justifyContent:'center' }}>
+          <button onClick={onClose} style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--ink-50)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Icon name="x" size={22} color="var(--ink-700)" />
           </button>
         </div>
-        <div className="lumi-small" style={{ marginBottom:22 }}>Estamos aquí para ayudarle</div>
+        <div className="lumi-small" style={{ marginBottom: 22 }}>Estamos aquí para ayudarle</div>
 
-        <div style={{ display:'flex', flexDirection:'column', gap:12, marginBottom:24 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
           {[
-            { icon:'phone',    color:'var(--ok-500)', bg:'var(--ok-50)', title:'Llamar al servicio al cliente', sub:'01-8000-LUMI · Las 24 horas, gratis' },
-            { icon:'whatsapp', color:'var(--ok-500)', bg:'var(--ok-50)', title:'Escribirnos por WhatsApp',      sub:'Respuesta inmediata' },
+            { icon: 'phone',    color: 'var(--ok-500)', bg: 'var(--ok-50)', title: 'Llamar al servicio al cliente', sub: '01-8000-NEOBIT · Las 24 horas, gratis' },
+            { icon: 'whatsapp', color: 'var(--ok-500)', bg: 'var(--ok-50)', title: 'Escribirnos por WhatsApp',       sub: 'Respuesta inmediata' },
           ].map((c, i) => (
-            <button key={i} className="lumi-list-row" style={{ minHeight:76 }}>
-              <div className="lumi-icon-bubble" style={{ background:c.bg }}><Icon name={c.icon} size={26} color={c.color} /></div>
-              <div style={{ flex:1 }}><div className="lumi-body-strong">{c.title}</div><div className="lumi-small">{c.sub}</div></div>
+            <button key={i} className="lumi-list-row" style={{ minHeight: 76 }}>
+              <div className="lumi-icon-bubble" style={{ background: c.bg }}><Icon name={c.icon} size={26} color={c.color} /></div>
+              <div style={{ flex: 1 }}><div className="lumi-body-strong">{c.title}</div><div className="lumi-small">{c.sub}</div></div>
               <Icon name="chevRight" size={22} color="var(--ink-300)" />
             </button>
           ))}
         </div>
 
-        <div className="lumi-eyebrow" style={{ marginBottom:12 }}>Accesibilidad</div>
-        <div style={{ display:'flex', flexDirection:'column', gap:12, marginBottom:16 }}>
-          <div className="lumi-list-row" style={{ minHeight:76 }}>
-            <div className="lumi-icon-bubble" style={{ background:'var(--o-50)' }}><Icon name="textSize" size={26} color="var(--o-600)" /></div>
-            <div style={{ flex:1 }}><div className="lumi-body-strong">Tamaño del texto</div><div className="lumi-small">Hacer todo más grande</div></div>
-            <div style={{ display:'flex', gap:6 }}>
-              {[{v:1,s:14},{v:1.15,s:18},{v:1.3,s:22}].map((opt, i) => (
-                <button key={i} onClick={() => onTweak('textScale', opt.v)} style={{ width:44, height:44, borderRadius:12, background: tweaks.textScale === opt.v ? 'var(--o-500)' : 'var(--ink-50)', color: tweaks.textScale === opt.v ? '#fff' : 'var(--ink-700)', border:'none', fontSize:opt.s, fontWeight:800 }}>A</button>
+        <div className="lumi-eyebrow" style={{ marginBottom: 12 }}>Accesibilidad</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
+          <div className="lumi-list-row" style={{ minHeight: 76 }}>
+            <div className="lumi-icon-bubble" style={{ background: 'var(--o-50)' }}><Icon name="textSize" size={26} color="var(--o-600)" /></div>
+            <div style={{ flex: 1 }}><div className="lumi-body-strong">Tamaño del texto</div><div className="lumi-small">Hacer todo más grande</div></div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {[{ v: 1, s: 14 }, { v: 1.15, s: 18 }, { v: 1.3, s: 22 }].map((opt, i) => (
+                <button key={i} onClick={() => onTweak('textScale', opt.v)} style={{ width: 44, height: 44, borderRadius: 12, background: tweaks.textScale === opt.v ? 'var(--o-500)' : 'var(--ink-50)', color: tweaks.textScale === opt.v ? '#fff' : 'var(--ink-700)', border: 'none', fontSize: opt.s, fontWeight: 800 }}>A</button>
               ))}
             </div>
           </div>
 
-          <button onClick={() => onTweak('voiceOnNav', !tweaks.voiceOnNav)} className="lumi-list-row" style={{ minHeight:76 }}>
-            <div className="lumi-icon-bubble" style={{ background:'var(--info-50)' }}><Icon name="speaker" size={26} color="var(--info-500)" /></div>
-            <div style={{ flex:1, textAlign:'left' }}>
+          <button onClick={() => onTweak('voiceOnNav', !tweaks.voiceOnNav)} className="lumi-list-row" style={{ minHeight: 76 }}>
+            <div className="lumi-icon-bubble" style={{ background: 'var(--info-50)' }}><Icon name="speaker" size={26} color="var(--info-500)" /></div>
+            <div style={{ flex: 1, textAlign: 'left' }}>
               <div className="lumi-body-strong">Lectura por voz</div>
               <div className="lumi-small">{tweaks.voiceOnNav ? 'Activada — leerá cada pantalla' : 'Desactivada'}</div>
             </div>
-            <div style={{ width:56, height:32, borderRadius:16, background: tweaks.voiceOnNav ? 'var(--ok-500)' : 'var(--ink-100)', position:'relative', transition:'background .2s' }}>
-              <div style={{ position:'absolute', top:3, left: tweaks.voiceOnNav ? 27 : 3, width:26, height:26, borderRadius:'50%', background:'#fff', transition:'left .2s', boxShadow:'0 2px 4px rgba(0,0,0,.2)' }} />
+            <div style={{ width: 56, height: 32, borderRadius: 16, background: tweaks.voiceOnNav ? 'var(--ok-500)' : 'var(--ink-100)', position: 'relative', transition: 'background .2s' }}>
+              <div style={{ position: 'absolute', top: 3, left: tweaks.voiceOnNav ? 27 : 3, width: 26, height: 26, borderRadius: '50%', background: '#fff', transition: 'left .2s', boxShadow: '0 2px 4px rgba(0,0,0,.2)' }} />
             </div>
           </button>
         </div>
 
-        <button onClick={onClose} className="lumi-btn-primary" style={{ marginTop:12 }}>Volver</button>
+        <button onClick={onClose} className="lumi-btn-primary" style={{ marginTop: 12 }}>Volver</button>
       </div>
     </div>
   );
@@ -136,7 +151,7 @@ export function LumiApp() {
 
   useEffect(() => {
     if (!tweaks.voiceOnNav || !user || payStep !== null) return;
-    const labels = ['Inicio','Mi perfil','Información','Pagos'];
+    const labels = ['Inicio', 'Mi perfil', 'Información', 'Pagos'];
     speak('Pantalla de ' + labels[tab]);
   }, [tab, tweaks.voiceOnNav, user]);
 
@@ -146,6 +161,11 @@ export function LumiApp() {
   const startPayment = () => setPayStep('method');
   const inPaymentFlow = payStep !== null;
   const showChrome = !!user && !inPaymentFlow && !showInvoice;
+
+  // Bottom padding accounts for tab bar + safe area
+  const contentPaddingBottom = showChrome
+    ? 'calc(100px + env(safe-area-inset-bottom, 0px))'
+    : 'calc(34px + env(safe-area-inset-bottom, 0px))';
 
   let screen: React.ReactNode;
   if (!user) {
@@ -166,17 +186,21 @@ export function LumiApp() {
   }
 
   return (
-    <div style={{ width:'100%', minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:20, background:'linear-gradient(135deg,#F0EDE8 0%,#E8E5DF 100%)' }}>
-      <IOSDevice width={402} height={874}>
-        <div className="lumi-app lumi-app-root" style={{ height:'100%', position:'relative', background:'var(--bg)', overflow:'hidden', ['--tx-scale' as string]: tweaks.textScale }}>
-          <div className="lumi-scroll" style={{ height:'100%', overflowY:'auto', paddingBottom: showChrome ? 100 : 34 }}>
-            {screen}
-          </div>
-          <HelpFab onClick={() => setHelpOpen(true)} hidden={!showChrome} />
-          {showChrome && <TabBar active={tab} onChange={setTab} />}
-          <HelpSheet open={helpOpen} onClose={() => setHelpOpen(false)} tweaks={tweaks} onTweak={updateTweak} />
+    <div className="app-shell">
+      <div className="lumi-app lumi-app-root" style={{
+        height: '100%',
+        position: 'relative',
+        background: 'var(--bg)',
+        overflow: 'hidden',
+        ['--tx-scale' as string]: tweaks.textScale,
+      }}>
+        <div className="lumi-scroll" style={{ height: '100%', overflowY: 'auto', paddingBottom: contentPaddingBottom }}>
+          {screen}
         </div>
-      </IOSDevice>
+        <HelpFab onClick={() => setHelpOpen(true)} hidden={!showChrome} />
+        {showChrome && <TabBar active={tab} onChange={setTab} />}
+        <HelpSheet open={helpOpen} onClose={() => setHelpOpen(false)} tweaks={tweaks} onTweak={updateTweak} />
+      </div>
     </div>
   );
 }
