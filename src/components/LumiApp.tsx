@@ -223,20 +223,20 @@ export function LumiApp() {
 
   let screen: React.ReactNode;
   if (!user) {
-    screen = <LoginScreen onLogin={u => { setUser(u); setTab(0); }} onHelp={() => setHelpOpen(true)} />;
+    screen = <LoginScreen onLogin={u => { setUser(u); setTab(0); }} onHelp={() => setHelpOpen(true)} isDesktop={isDesktop} />;
   } else if (showInvoice) {
-    screen = <InvoiceScreen user={user} onPay={() => { setShowInvoice(false); setPayStep('method'); }} onBack={() => setShowInvoice(false)} />;
+    screen = <InvoiceScreen user={user} onPay={() => { setShowInvoice(false); setPayStep('method'); }} onBack={() => setShowInvoice(false)} isDesktop={isDesktop} />;
   } else if (payStep === 'method') {
-    screen = <PaymentsScreen onSelectMethod={m => { setPayMethod(m); setPayStep('confirm'); }} onBack={() => setPayStep(null)} />;
+    screen = <PaymentsScreen onSelectMethod={m => { setPayMethod(m); setPayStep('confirm'); }} onBack={() => setPayStep(null)} isDesktop={isDesktop} />;
   } else if (payStep === 'confirm') {
-    screen = <PaymentConfirmScreen method={payMethod!} onConfirm={() => setPayStep('success')} onCancel={() => setPayStep('method')} />;
+    screen = <PaymentConfirmScreen method={payMethod!} onConfirm={() => setPayStep('success')} onCancel={() => setPayStep('method')} isDesktop={isDesktop} />;
   } else if (payStep === 'success') {
-    screen = <PaymentSuccessScreen onHome={() => { setPayStep(null); setTab(0); }} onSpeak={tweaks.voiceOnNav ? speak : null} />;
+    screen = <PaymentSuccessScreen onHome={() => { setPayStep(null); setTab(0); }} onSpeak={tweaks.voiceOnNav ? speak : null} isDesktop={isDesktop} />;
   } else {
-    if (tab === 0) screen = <HomeScreen user={user} onPay={startPayment} onNav={setTab} onInvoice={() => setShowInvoice(true)} onHelp={() => setHelpOpen(true)} onSpeak={() => speak(`Hola ${user.name}. Su factura del mes de mayo es de ciento veinticinco mil cuatrocientos pesos. Vence en 14 días.`)} />;
-    else if (tab === 1) screen = <MyProfileScreen user={user} />;
-    else if (tab === 2) screen = <InformationScreen />;
-    else if (tab === 3) screen = <PaymentsScreen onSelectMethod={m => { setPayMethod(m); setPayStep('confirm'); }} onBack={() => setTab(0)} />;
+    if (tab === 0) screen = <HomeScreen user={user} onPay={startPayment} onNav={setTab} onInvoice={() => setShowInvoice(true)} onHelp={() => setHelpOpen(true)} onSpeak={() => speak(`Hola ${user.name}. Su factura del mes de mayo es de ciento veinticinco mil cuatrocientos pesos. Vence en 14 días.`)} isDesktop={isDesktop} />;
+    else if (tab === 1) screen = <MyProfileScreen user={user} isDesktop={isDesktop} />;
+    else if (tab === 2) screen = <InformationScreen isDesktop={isDesktop} />;
+    else if (tab === 3) screen = <PaymentsScreen onSelectMethod={m => { setPayMethod(m); setPayStep('confirm'); }} onBack={() => setTab(0)} isDesktop={isDesktop} />;
   }
 
   return (

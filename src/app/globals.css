@@ -81,8 +81,6 @@ input  { font-family: inherit; }
   }
 
   .lumi-desktop-content {
-    max-width: 720px;
-    margin: 0 auto;
     min-height: 100%;
     width: 100%;
   }
@@ -90,7 +88,7 @@ input  { font-family: inherit; }
 
 /* ── Sidebar (desktop) ── */
 .lumi-sidebar {
-  width: 240px;
+  width: 260px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
