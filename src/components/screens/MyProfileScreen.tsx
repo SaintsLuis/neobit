@@ -268,7 +268,7 @@ export function MyProfileScreen({
             className='lumi-body'
             style={{ color: 'var(--ink-700)', lineHeight: 1.5 }}
           >
-            Calle 45 # 23-67
+            Calle 45 # 23-68
             <br />
             Barrio Pance, Cali
           </div>
@@ -696,7 +696,7 @@ export function MyProfileScreen({
             >
               Calle 45 # 23-67
               <br />
-              Barrio El Prado, Medellín
+              Barrio Pance, Cali
             </div>
           </div>
         </div>
