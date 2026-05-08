@@ -1,5 +1,5 @@
-import { LumiApp } from '@/components/LumiApp';
+import { LumiApp } from '@/components/NeobitApp'
 
 export default function Home() {
-  return <LumiApp />;
+  return <LumiApp />
 }
