@@ -435,10 +435,10 @@ input  { font-family: inherit; }
 .login-btn-help {
   width: 100%;
   min-height: 56px;
-  background: transparent;
-  border: 2px solid var(--ink-100);
+  background: var(--o-50);
+  border: 2px solid var(--o-300);
   border-radius: 16px;
-  color: var(--ink-700);
+  color: var(--o-700);
   font-size: calc(16px * var(--tx-scale));
   font-weight: 700;
   cursor: pointer;
@@ -452,7 +452,14 @@ input  { font-family: inherit; }
 .login-btn-help:hover {
   border-color: var(--o-500);
   color: var(--o-600);
-  background: var(--o-50);
+  background: #fff4e5;
+  box-shadow: 0 8px 18px rgba(242, 158, 8, 0.12);
+  transform: translateY(-1px);
+}
+
+.login-btn-help:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(242, 158, 8, 0.18);
 }
 
 .login-security-badge {

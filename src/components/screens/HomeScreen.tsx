@@ -312,7 +312,7 @@ export function HomeScreen({
               justifyContent: 'center',
             }}
           >
-            <Icon name='speaker' size={24} color='var(--ink-700)' />
+            <Icon name='speaker' size={24} color='#fc4b08' />
           </button>
         </div>
 
@@ -335,7 +335,7 @@ export function HomeScreen({
   }
 
   return (
-    <div className='lumi-page' style={{ padding: '70px 20px 28px' }}>
+    <div className='lumi-page' style={{ padding: '60px 20px 28px' }}>
       <div
         style={{
           display: 'flex',
@@ -366,7 +366,7 @@ export function HomeScreen({
             justifyContent: 'center',
           }}
         >
-          <Icon name='speaker' size={24} color='var(--ink-700)' />
+          <Icon name='speaker' size={24} color='#fc4b08' />
         </button>
       </div>
 

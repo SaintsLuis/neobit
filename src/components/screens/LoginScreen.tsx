@@ -87,7 +87,7 @@ function LoginForm({
         </button>
 
         <button className='login-btn-help' onClick={onHelp}>
-          <Icon name='question' size={16} color='var(--ink-700)' />
+          <Icon name='question' size={16} color='#fc4b08' />
           ¿Necesita ayuda?
         </button>
       </div>

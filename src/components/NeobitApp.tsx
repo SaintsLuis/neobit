@@ -205,13 +205,13 @@ function HelpFab({ onClick }: { onClick: () => void }) {
         width: 52,
         height: 52,
         borderRadius: '50%',
-        background: 'var(--ink-900)',
+        background: 'linear-gradient(180deg, #F29E08 0%, #E25905 100%)',
         color: '#fff',
         border: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 6px 18px rgba(26,20,17,.24)',
+        boxShadow: '0 8px 20px rgba(226,89,5,.28)',
         zIndex: 40,
       }}
     >
