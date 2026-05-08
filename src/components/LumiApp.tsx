@@ -39,49 +39,77 @@ const NAV_TABS = [
   { id: 3, label: 'Pagos',       icon: 'card', iconFill: 'cardFill' },
 ];
 
-// ── Sidebar (desktop only) ────────────────────────────────────
+// ── Sidebar (desktop) ─────────────────────────────────────────
 function Sidebar({ active, onChange, onHelp, user }: {
   active: number; onChange: (t: number) => void; onHelp: () => void; user: { name: string } | null;
 }) {
   return (
-    <aside className="lumi-sidebar">
-      <div className="lumi-sidebar-brand">
-        <NeobitLogo size={38} />
-        <span className="lumi-sidebar-brand-name">NEOBIT</span>
+    <aside className="nb-sidebar">
+      <div className="nb-sidebar-brand">
+        <NeobitLogo size={36} />
+        <span className="nb-sidebar-brand-name">NEOBIT</span>
       </div>
 
-      <nav className="lumi-sidebar-nav-items">
+      <div className="nb-sidebar-section-label">Menú</div>
+      <nav className="nb-sidebar-nav">
         {NAV_TABS.map(t => {
           const isActive = active === t.id;
           return (
-            <button key={t.id} className="lumi-sidebar-item" data-active={isActive} onClick={() => onChange(t.id)}>
-              <Icon name={isActive ? t.iconFill : t.icon} size={20} color={isActive ? 'var(--o-500)' : 'var(--ink-500)'} />
+            <button key={t.id} className="nb-sidebar-item" data-active={isActive} onClick={() => onChange(t.id)}>
+              <span className="nb-sidebar-item-icon">
+                <Icon name={isActive ? t.iconFill : t.icon} size={19} color={isActive ? 'var(--o-500)' : 'var(--ink-400)'} />
+              </span>
               {t.label}
             </button>
           );
         })}
       </nav>
 
-      <div className="lumi-sidebar-footer">
+      <div style={{ flex: 1 }} />
+
+      <div className="nb-sidebar-footer">
+        <button className="nb-sidebar-item" onClick={onHelp}>
+          <span className="nb-sidebar-item-icon">
+            <Icon name="question" size={19} color="var(--ink-400)" />
+          </span>
+          Centro de ayuda
+        </button>
         {user && (
-          <div className="lumi-sidebar-user">
-            <div className="lumi-sidebar-avatar">{user.name[0]}</div>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--ink-900)' }}>{user.name}</div>
-              <div style={{ fontSize: 12, color: 'var(--ink-500)' }}>Cliente activo</div>
+          <div className="nb-sidebar-user-card">
+            <div className="nb-sidebar-avatar">{user.name[0]}</div>
+            <div className="nb-sidebar-user-info">
+              <div className="nb-sidebar-user-name">{user.name}</div>
+              <div className="nb-sidebar-user-role">Cliente activo</div>
             </div>
           </div>
         )}
-        <button className="lumi-sidebar-item" onClick={onHelp} style={{ marginTop: 8 }}>
-          <Icon name="question" size={20} color="var(--ink-500)" />
-          Ayuda
-        </button>
       </div>
     </aside>
   );
 }
 
-// ── Tab Bar (mobile only) ─────────────────────────────────────
+// ── Desktop Topbar ────────────────────────────────────────────
+function DesktopTopbar({ tab, inPaymentFlow, showInvoice }: {
+  tab: number; inPaymentFlow: boolean; showInvoice: boolean;
+}) {
+  const getTitle = () => {
+    if (showInvoice) return 'Mi factura';
+    if (inPaymentFlow) return 'Realizar pago';
+    return ['Inicio', 'Mi perfil', 'Información', 'Pagos'][tab];
+  };
+  const now = new Date();
+  const date = now.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  return (
+    <div className="nb-topbar">
+      <div className="nb-topbar-left">
+        <h1 className="nb-topbar-title">{getTitle()}</h1>
+        <span className="nb-topbar-date">{date.charAt(0).toUpperCase() + date.slice(1)}</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Tab Bar (mobile) ──────────────────────────────────────────
 function TabBar({ active, onChange }: { active: number; onChange: (t: number) => void }) {
   return (
     <div style={{
@@ -108,7 +136,7 @@ function TabBar({ active, onChange }: { active: number; onChange: (t: number) =>
   );
 }
 
-// ── Help FAB (mobile only) ────────────────────────────────────
+// ── Help FAB (mobile) ─────────────────────────────────────────
 function HelpFab({ onClick }: { onClick: () => void }) {
   return (
     <button onClick={onClick} aria-label="Ayuda" style={{
@@ -123,7 +151,7 @@ function HelpFab({ onClick }: { onClick: () => void }) {
   );
 }
 
-// ── Help Sheet ───────────────────────────────────────────────
+// ── Help Sheet ────────────────────────────────────────────────
 interface HelpSheetProps {
   open: boolean;
   onClose: () => void;
@@ -144,7 +172,6 @@ function HelpSheet({ open, onClose, tweaks, onTweak }: HelpSheetProps) {
           </button>
         </div>
         <div className="lumi-small" style={{ marginBottom: 22 }}>Estamos aquí para ayudarle</div>
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
           {[
             { icon: 'phone',    color: 'var(--ok-500)', bg: 'var(--ok-50)', title: 'Llamar al servicio al cliente', sub: '01-8000-NEOBIT · Las 24 horas, gratis' },
@@ -157,7 +184,6 @@ function HelpSheet({ open, onClose, tweaks, onTweak }: HelpSheetProps) {
             </button>
           ))}
         </div>
-
         <div className="lumi-eyebrow" style={{ marginBottom: 12 }}>Accesibilidad</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
           <div className="lumi-list-row" style={{ minHeight: 76 }}>
@@ -169,7 +195,6 @@ function HelpSheet({ open, onClose, tweaks, onTweak }: HelpSheetProps) {
               ))}
             </div>
           </div>
-
           <button onClick={() => onTweak('voiceOnNav', !tweaks.voiceOnNav)} className="lumi-list-row" style={{ minHeight: 76 }}>
             <div className="lumi-icon-bubble" style={{ background: 'var(--info-50)' }}><Icon name="speaker" size={26} color="var(--info-500)" /></div>
             <div style={{ flex: 1, textAlign: 'left' }}>
@@ -181,14 +206,13 @@ function HelpSheet({ open, onClose, tweaks, onTweak }: HelpSheetProps) {
             </div>
           </button>
         </div>
-
         <button onClick={onClose} className="lumi-btn-primary" style={{ marginTop: 12 }}>Volver</button>
       </div>
     </div>
   );
 }
 
-// ── Main App ─────────────────────────────────────────────────
+// ── Main App ──────────────────────────────────────────────────
 export function LumiApp() {
   const [user, setUser]               = useState<User | null>(null);
   const [tab, setTab]                 = useState(0);
@@ -247,14 +271,20 @@ export function LumiApp() {
 
       <div className="lumi-app lumi-app-root" style={{
         flex: 1,
-        height: '100%',
+        minHeight: 0,
+        display: 'flex',
+        flexDirection: 'column',
         position: 'relative',
         background: 'var(--bg)',
         overflow: 'hidden',
         ['--tx-scale' as string]: tweaks.textScale,
       }}>
-        <div className="lumi-scroll" style={{ height: '100%', overflowY: 'auto', paddingBottom: contentPaddingBottom }}>
-          <div className={isDesktop ? 'lumi-desktop-content' : undefined}>
+        {isDesktop && user && (
+          <DesktopTopbar tab={tab} inPaymentFlow={inPaymentFlow} showInvoice={showInvoice} />
+        )}
+
+        <div className="lumi-scroll" style={{ flex: 1, overflowY: 'auto', paddingBottom: contentPaddingBottom }}>
+          <div className={isDesktop ? 'nb-desktop-content' : undefined}>
             {screen}
           </div>
         </div>
