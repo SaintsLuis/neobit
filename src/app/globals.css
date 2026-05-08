@@ -64,6 +64,9 @@ input  { font-family: inherit; }
   overflow: hidden;
   background: var(--bg);
   padding-top: env(safe-area-inset-top, 0px);
+  /* mobile: flex column so flex:1 children fill the viewport correctly */
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {
@@ -75,14 +78,9 @@ input  { font-family: inherit; }
   }
 
   .app-shell {
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    border-radius: 0;
-    box-shadow: none;
-    padding-top: 0;
-    display: flex;
     flex-direction: row;
+    overflow: visible;
+    padding-top: 0;
   }
 }
 

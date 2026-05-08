@@ -283,7 +283,7 @@ export function LumiApp() {
           <DesktopTopbar tab={tab} inPaymentFlow={inPaymentFlow} showInvoice={showInvoice} />
         )}
 
-        <div className="lumi-scroll" style={{ flex: 1, overflowY: 'auto', paddingBottom: contentPaddingBottom }}>
+        <div className="lumi-scroll" style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingBottom: contentPaddingBottom }}>
           <div className={isDesktop ? 'nb-desktop-content' : undefined}>
             {screen}
           </div>
