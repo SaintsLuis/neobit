@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: '¿Qué hago si tengo un corte de luz?',
-    a: 'Puede reportarlo desde la pantalla de Inicio en "Reportar daño", o llamarnos al 01-8000-LUMI. Atendemos las 24 horas.',
+    a: 'Puede reportarlo desde la pantalla de Inicio en "Reportar daño", o llamarnos al 01-8000-NEOBIT. Atendemos las 24 horas.',
   },
   {
     q: '¿Puedo pagar en efectivo?',
