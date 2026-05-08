@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Icon } from './Icon';
+import { Icon, NeobitLogo } from './Icon';
 import { LoginScreen } from './screens/LoginScreen';
 import { HomeScreen } from './screens/HomeScreen';
 import { MyProfileScreen } from './screens/MyProfileScreen';
@@ -20,14 +20,69 @@ function speak(text: string) {
   window.speechSynthesis.speak(u);
 }
 
-// ── Tab Bar ──────────────────────────────────────────────────
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+  return isDesktop;
+}
+
+const NAV_TABS = [
+  { id: 0, label: 'Inicio',      icon: 'home', iconFill: 'homeFill' },
+  { id: 1, label: 'Mi perfil',   icon: 'user', iconFill: 'user' },
+  { id: 2, label: 'Información', icon: 'info', iconFill: 'infoFill' },
+  { id: 3, label: 'Pagos',       icon: 'card', iconFill: 'cardFill' },
+];
+
+// ── Sidebar (desktop only) ────────────────────────────────────
+function Sidebar({ active, onChange, onHelp, user }: {
+  active: number; onChange: (t: number) => void; onHelp: () => void; user: { name: string } | null;
+}) {
+  return (
+    <aside className="lumi-sidebar">
+      <div className="lumi-sidebar-brand">
+        <NeobitLogo size={38} />
+        <span className="lumi-sidebar-brand-name">NEOBIT</span>
+      </div>
+
+      <nav className="lumi-sidebar-nav-items">
+        {NAV_TABS.map(t => {
+          const isActive = active === t.id;
+          return (
+            <button key={t.id} className="lumi-sidebar-item" data-active={isActive} onClick={() => onChange(t.id)}>
+              <Icon name={isActive ? t.iconFill : t.icon} size={20} color={isActive ? 'var(--o-500)' : 'var(--ink-500)'} />
+              {t.label}
+            </button>
+          );
+        })}
+      </nav>
+
+      <div className="lumi-sidebar-footer">
+        {user && (
+          <div className="lumi-sidebar-user">
+            <div className="lumi-sidebar-avatar">{user.name[0]}</div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--ink-900)' }}>{user.name}</div>
+              <div style={{ fontSize: 12, color: 'var(--ink-500)' }}>Cliente activo</div>
+            </div>
+          </div>
+        )}
+        <button className="lumi-sidebar-item" onClick={onHelp} style={{ marginTop: 8 }}>
+          <Icon name="question" size={20} color="var(--ink-500)" />
+          Ayuda
+        </button>
+      </div>
+    </aside>
+  );
+}
+
+// ── Tab Bar (mobile only) ─────────────────────────────────────
 function TabBar({ active, onChange }: { active: number; onChange: (t: number) => void }) {
-  const tabs = [
-    { id: 0, label: 'Inicio',       icon: 'home', iconFill: 'homeFill' },
-    { id: 1, label: 'Mi perfil',    icon: 'user', iconFill: 'user' },
-    { id: 2, label: 'Información',  icon: 'info', iconFill: 'infoFill' },
-    { id: 3, label: 'Pagos',        icon: 'card', iconFill: 'cardFill' },
-  ];
   return (
     <div style={{
       position: 'absolute', bottom: 0, left: 0, right: 0,
@@ -40,7 +95,7 @@ function TabBar({ active, onChange }: { active: number; onChange: (t: number) =>
       display: 'flex',
       zIndex: 30,
     }}>
-      {tabs.map(t => {
+      {NAV_TABS.map(t => {
         const isActive = active === t.id;
         return (
           <button key={t.id} className="lumi-tab" data-active={isActive} onClick={() => onChange(t.id)}>
@@ -53,9 +108,8 @@ function TabBar({ active, onChange }: { active: number; onChange: (t: number) =>
   );
 }
 
-// ── Help FAB ─────────────────────────────────────────────────
-function HelpFab({ onClick, hidden }: { onClick: () => void; hidden: boolean }) {
-  if (hidden) return null;
+// ── Help FAB (mobile only) ────────────────────────────────────
+function HelpFab({ onClick }: { onClick: () => void }) {
   return (
     <button onClick={onClick} aria-label="Ayuda" style={{
       position: 'absolute', bottom: 'calc(max(20px, env(safe-area-inset-bottom, 8px)) + 88px)',
@@ -143,6 +197,7 @@ export function LumiApp() {
   const [showInvoice, setShowInvoice] = useState(false);
   const [helpOpen, setHelpOpen]       = useState(false);
   const [tweaks, setTweaks]           = useState({ textScale: 1, voiceOnNav: false });
+  const isDesktop                     = useIsDesktop();
 
   useEffect(() => {
     const root = document.querySelector<HTMLElement>('.lumi-app-root');
@@ -158,14 +213,13 @@ export function LumiApp() {
   const updateTweak = (key: string, value: number | boolean) =>
     setTweaks(prev => ({ ...prev, [key]: value }));
 
-  const startPayment = () => setPayStep('method');
+  const startPayment  = () => setPayStep('method');
   const inPaymentFlow = payStep !== null;
-  const showChrome = !!user && !inPaymentFlow && !showInvoice;
+  const showChrome    = !!user && !inPaymentFlow && !showInvoice;
 
-  // Bottom padding accounts for tab bar + safe area
-  const contentPaddingBottom = showChrome
+  const contentPaddingBottom = showChrome && !isDesktop
     ? 'calc(100px + env(safe-area-inset-bottom, 0px))'
-    : 'calc(34px + env(safe-area-inset-bottom, 0px))';
+    : '48px';
 
   let screen: React.ReactNode;
   if (!user) {
@@ -187,7 +241,12 @@ export function LumiApp() {
 
   return (
     <div className="app-shell">
+      {showChrome && isDesktop && (
+        <Sidebar active={tab} onChange={setTab} onHelp={() => setHelpOpen(true)} user={user} />
+      )}
+
       <div className="lumi-app lumi-app-root" style={{
+        flex: 1,
         height: '100%',
         position: 'relative',
         background: 'var(--bg)',
@@ -195,10 +254,13 @@ export function LumiApp() {
         ['--tx-scale' as string]: tweaks.textScale,
       }}>
         <div className="lumi-scroll" style={{ height: '100%', overflowY: 'auto', paddingBottom: contentPaddingBottom }}>
-          {screen}
+          <div className={isDesktop ? 'lumi-desktop-content' : undefined}>
+            {screen}
+          </div>
         </div>
-        <HelpFab onClick={() => setHelpOpen(true)} hidden={!showChrome} />
-        {showChrome && <TabBar active={tab} onChange={setTab} />}
+
+        {showChrome && !isDesktop && <HelpFab onClick={() => setHelpOpen(true)} />}
+        {showChrome && !isDesktop && <TabBar active={tab} onChange={setTab} />}
         <HelpSheet open={helpOpen} onClose={() => setHelpOpen(false)} tweaks={tweaks} onTweak={updateTweak} />
       </div>
     </div>
