@@ -49,7 +49,8 @@ html, body {
   text-rendering: optimizeLegibility;
   background: var(--bg);
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 * { box-sizing: border-box; }

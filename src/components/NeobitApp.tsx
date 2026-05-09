@@ -156,7 +156,7 @@ function TabBar({
   return (
     <div
       style={{
-        position: 'absolute',
+        position: 'fixed',
         bottom: 0,
         left: 0,
         right: 0,
@@ -199,7 +199,7 @@ function HelpFab({ onClick }: { onClick: () => void }) {
       onClick={onClick}
       aria-label='Ayuda'
       style={{
-        position: 'absolute',
+        position: 'fixed',
         bottom: 'calc(max(12px, env(safe-area-inset-bottom, 12px)) + 80px)',
         right: 16,
         width: 52,
@@ -470,7 +470,9 @@ export function LumiApp() {
   const contentPaddingBottom =
     showChrome && !isDesktop
       ? 'calc(100px + env(safe-area-inset-bottom, 0px))'
-      : '48px'
+      : !user
+        ? '0'
+        : '48px'
 
   let screen: React.ReactNode
   if (!user) {
@@ -615,9 +617,11 @@ export function LumiApp() {
             paddingBottom: contentPaddingBottom,
           }}
         >
-          <div className={isDesktop ? 'nb-desktop-content' : undefined}>
-            {screen}
-          </div>
+          {isDesktop ? (
+            <div className='nb-desktop-content'>{screen}</div>
+          ) : (
+            screen
+          )}
         </div>
 
         {showChrome && !isDesktop && (
