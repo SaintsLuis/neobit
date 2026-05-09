@@ -91,7 +91,7 @@ export function PaymentsScreen({ onSelectMethod, onBack, isDesktop }: PaymentsSc
   }
 
   return (
-    <div className="lumi-page" style={{ padding: '70px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+    <div className="lumi-page" style={{ padding: '20px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       <div style={{ marginBottom: 18 }}>
         <div className="lumi-h1" style={{ fontSize: 32, marginBottom: 6 }}>Pagar</div>
         <div className="lumi-body" style={{ color: 'var(--ink-500)' }}>Elija cómo desea pagar</div>
@@ -191,7 +191,7 @@ export function PaymentConfirmScreen({ method, onConfirm, onCancel, isDesktop }:
   }
 
   return (
-    <div className="lumi-page" style={{ padding: '70px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+    <div className="lumi-page" style={{ padding: '20px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       {content}
     </div>
   );
@@ -263,7 +263,7 @@ export function PaymentSuccessScreen({ onHome, onSpeak, isDesktop }: PaymentSucc
   }
 
   return (
-    <div className="lumi-page" style={{ padding: '70px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+    <div className="lumi-page" style={{ padding: '20px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       {content}
     </div>
   );

@@ -290,8 +290,8 @@ export function LoginScreen({ onLogin, onHelp, isDesktop }: LoginScreenProps) {
     <div
       className='lumi-page'
       style={{
-        minHeight: '100vh',
-        padding: '80px 24px 40px',
+        minHeight: '100%',
+        padding: '24px 24px 40px',
         display: 'flex',
         flexDirection: 'column',
         background:

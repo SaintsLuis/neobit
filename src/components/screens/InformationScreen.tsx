@@ -281,7 +281,7 @@ export function InformationScreen({ isDesktop }: InformationScreenProps) {
   }
 
   return (
-    <div className='lumi-page' style={{ padding: '70px 20px 28px' }}>
+    <div className='lumi-page' style={{ padding: '20px 20px 28px' }}>
       <div style={{ marginBottom: 22 }}>
         <div className='lumi-h1' style={{ fontSize: 32, marginBottom: 6 }}>
           Información

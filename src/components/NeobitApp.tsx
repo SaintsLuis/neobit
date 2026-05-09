@@ -165,7 +165,7 @@ function TabBar({
         WebkitBackdropFilter: 'blur(20px)',
         borderTop: '1px solid var(--ink-100)',
         paddingTop: 8,
-        paddingBottom: 'max(20px, env(safe-area-inset-bottom, 8px))',
+        paddingBottom: 'max(12px, env(safe-area-inset-bottom, 12px))',
         display: 'flex',
         zIndex: 30,
       }}
@@ -200,7 +200,7 @@ function HelpFab({ onClick }: { onClick: () => void }) {
       aria-label='Ayuda'
       style={{
         position: 'absolute',
-        bottom: 'calc(max(20px, env(safe-area-inset-bottom, 8px)) + 88px)',
+        bottom: 'calc(max(12px, env(safe-area-inset-bottom, 12px)) + 80px)',
         right: 16,
         width: 52,
         height: 52,

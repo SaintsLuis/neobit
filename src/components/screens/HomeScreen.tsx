@@ -335,7 +335,7 @@ export function HomeScreen({
   }
 
   return (
-    <div className='lumi-page' style={{ padding: '60px 20px 28px' }}>
+    <div className='lumi-page' style={{ padding: '20px 20px 28px' }}>
       <div
         style={{
           display: 'flex',

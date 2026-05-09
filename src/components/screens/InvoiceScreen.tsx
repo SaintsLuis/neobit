@@ -23,7 +23,7 @@ export function InvoiceScreen({ user, onPay, onBack, isDesktop }: InvoiceScreenP
   const total = breakdown.reduce((s, x) => s + x.amount, 0);
 
   const headerBar = (
-    <div style={{ padding: isDesktop ? '0 0 24px' : '64px 16px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
+    <div style={{ padding: isDesktop ? '0 0 24px' : '20px 16px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
       <button onClick={onBack} aria-label="Volver" style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--surface)', border: '1px solid var(--ink-100)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Icon name="chevLeft" size={22} color="var(--ink-700)" />
       </button>

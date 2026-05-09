@@ -452,7 +452,7 @@ export function MyProfileScreen({
     <div className='lumi-page' style={{ padding: 0, paddingBottom: 28 }}>
       <div
         style={{
-          height: 140,
+          height: 110,
           background:
             'linear-gradient(135deg,#F29E08 0%,#EC8805 50%,#E25905 100%)',
           position: 'relative',
@@ -475,7 +475,7 @@ export function MyProfileScreen({
         />
         <div
           style={{
-            padding: '50px 20px 0',
+            padding: '20px 20px 0',
             color: '#fff',
             display: 'flex',
             alignItems: 'center',
